@@ -8,6 +8,7 @@ import com.co.pruebaandroid.Connection.requestService
 import com.co.pruebaandroid.Models.Movie
 import com.co.pruebaandroid.Models.Result
 import com.co.pruebaandroid.R
+import com.co.pruebaandroid.SQL.ConnectionSqlHelper
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
@@ -28,7 +29,7 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem {
     }
 
     override fun onClickImage(result: Result) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onDataReturn(result: Movie?, tag: String?) {
