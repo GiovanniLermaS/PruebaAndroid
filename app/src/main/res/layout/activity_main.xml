@@ -4,28 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Home.HomeActivity">
 
     <include
         android:id="@+id/tb"
         layout="@layout/view_toolbar" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvImages"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tb" />
-
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/rvSimpleRoutine"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
 </android.support.constraint.ConstraintLayout>
