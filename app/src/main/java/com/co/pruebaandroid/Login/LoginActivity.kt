@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         when (p0) {
             btLogin -> {
                 if (isExists(etEmailLogIn.text.toString(), etPasswordLogIn.text.toString()).count > 0) {
-                    updateUser(etEmailLogIn.text.toString())
+                    updateUser(etEmailLogIn.text.toString(), "true")
                     val intent = Intent(this, DescriptionItemActivity::class.java)
                     intent.putExtra("id", id)
                     startActivity(intent)

@@ -54,9 +54,9 @@ fun Context.selectedMovie(id: String): Cursor {
 
 fun Context.isLogIn(): Cursor {
     val conn = ConnectionSqlHelper(this, "db_users", null, 1)
-    val db = conn.readableDatabase
+    val db = conn.writableDatabase
     return db.rawQuery(
-        "SELECT * FROM ${Utils().TABLE_USER} WHERE ${Utils().IS_LOGIN} = 'true'",
+        "SELECT ${Utils().EMAIL} FROM ${Utils().TABLE_USER} WHERE ${Utils().IS_LOGIN} = 'true'",
         null
     )
 }
@@ -72,13 +72,23 @@ fun Context.registerUser(name: String, email: String, password: String) {
     db.close()
 }
 
-fun Context.updateUser(email: String) {
+fun Context.updateUser(email: String, isLogIn: String) {
     val conn = ConnectionSqlHelper(this, "db_users", null, 1)
     val db = conn.writableDatabase
     val values = ContentValues()
     values.put(Utils().EMAIL, email)
-    values.put(Utils().IS_LOGIN, "true")
+    values.put(Utils().IS_LOGIN, isLogIn)
     db.update(Utils().TABLE_USER, values, "${Utils().EMAIL} ='$email'", null)
+    db.close()
+}
+
+fun Context.updateFavorite(id: String, isFavorite: String) {
+    val conn = ConnectionSqlHelper(this, "db_users", null, 1)
+    val db = conn.writableDatabase
+    val values = ContentValues()
+    values.put(Utils().ID, id)
+    values.put(Utils().IS_FAVORITE, isFavorite)
+    db.update(Utils().TABLE_MOVIE, values, "${Utils().ID} ='$id'", null)
     db.close()
 }
 
