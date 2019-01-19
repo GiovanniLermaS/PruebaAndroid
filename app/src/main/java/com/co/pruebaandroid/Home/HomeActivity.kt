@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.co.pruebaandroid.Connection.ResultService
-import com.co.pruebaandroid.Connection.isLogIn
-import com.co.pruebaandroid.Connection.registerMovie
-import com.co.pruebaandroid.Connection.requestService
+import com.co.pruebaandroid.Connection.*
 import com.co.pruebaandroid.DescriptionItem.DescriptionItemActivity
 import com.co.pruebaandroid.Login.LoginActivity
 import com.co.pruebaandroid.Models.Movie
@@ -34,13 +31,27 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem {
     }
 
     override fun onClickImage(result: Result) {
+        if (selectedMovie(result.id.toString()).count <= 0) {
+            val id = if (result.id == null) ""
+            else result.id.toString()
+            val image = if (result.image?.small_url == null) ""
+            else result.id.toString()
+            val description = if (result.description == null) ""
+            else result.id.toString()
+            registerMovie(
+                id,
+                image,
+                description,
+                "false"
+            )
+        }
         if (isLogIn().count > 0) {
             val intent = Intent(this, DescriptionItemActivity::class.java)
-            intent.putExtra("id", result.id)
+            intent.putExtra("id", result.id.toString())
             startActivity(intent)
         } else {
             val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra("id", result.id)
+            intent.putExtra("id", result.id.toString())
             startActivity(intent)
         }
     }
@@ -49,10 +60,8 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem {
         when (tag) {
             withNoFilter -> {
                 val listResults = result?.results
-                for (list in listResults!!)
-                    registerMovie(list.id?.toString()!!, list.description!!, "false")
                 val adp = GroupAdapter<ViewHolder>()
-                for (list in listResults) adp.add(Images(list, this))
+                for (list in listResults!!) adp.add(Images(list, this))
                 rvImages.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
                 rvImages.adapter = adp
             }

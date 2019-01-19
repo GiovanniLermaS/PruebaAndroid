@@ -8,7 +8,7 @@ class Image : Serializable {
     @SerializedName("icon_url")
     val icon_url: String? = null
     @SerializedName("medium_url")
-    val small_urlmedium_url: String? = null
+    val medium_url: String? = null
     @SerializedName("screen_url")
     val screen_url: String? = null
     @SerializedName("screen_large_url")
