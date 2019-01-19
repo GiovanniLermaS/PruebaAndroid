@@ -52,6 +52,15 @@ fun Context.selectedMovie(id: String): Cursor {
     )
 }
 
+fun Context.selectAllMovies(): Cursor {
+    val conn = ConnectionSqlHelper(this, "db_users", null, 1)
+    val db = conn.writableDatabase
+    return db.rawQuery(
+        "SELECT ${Utils().IMAGE}, ${Utils().DESCRIPTION}, ${Utils().IS_FAVORITE} FROM ${Utils().TABLE_MOVIE}",
+        null
+    )
+}
+
 fun Context.isLogIn(): Cursor {
     val conn = ConnectionSqlHelper(this, "db_users", null, 1)
     val db = conn.writableDatabase

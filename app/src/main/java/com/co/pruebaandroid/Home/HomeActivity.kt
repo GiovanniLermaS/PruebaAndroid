@@ -30,8 +30,9 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem, View.OnCli
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (isLogIn().count > 0)
+        if (isLogIn().count > 0) {
             ivLogOut.visibility = View.VISIBLE
+        }
         requestService(null, withNoFilter)
         ivLogOut.setOnClickListener(this)
     }
@@ -44,6 +45,7 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem, View.OnCli
                     val email = movie.getString(movie.getColumnIndex(Utils().EMAIL))
                     updateUser(email, "false")
                     ivLogOut.visibility = View.GONE
+                    ivFavoriteToolbar.visibility = View.GONE
                 }
             }
         }
