@@ -16,14 +16,5 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    private fun registerUsers() {
-        val conn = ConnectionSqlHelper(this, "db_users", null, 1)
-        val db = conn.writableDatabase
-        val values = ContentValues()
-        values.put(Utils().NAME, etName.text.toString())
-        values.put(Utils().EMAIL, etEmail.text.toString())
-        values.put(Utils().PASSWORD, etPassword.text.toString())
-        db.insert(Utils().TABLE_USER, Utils().EMAIL, values)
-        db.close()
-    }
+
 }

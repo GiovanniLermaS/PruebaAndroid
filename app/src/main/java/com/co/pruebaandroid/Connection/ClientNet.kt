@@ -1,8 +1,12 @@
 package com.co.pruebaandroid.Connection
 
+import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import com.co.pruebaandroid.Models.Movie
+import com.co.pruebaandroid.SQL.ConnectionSqlHelper
 import com.co.pruebaandroid.Utils.Constants
+import com.co.pruebaandroid.Utils.Utils
 import com.co.pruebaandroid.Utils.getAPIService
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
@@ -11,7 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-
 
 class ClientNet {
     companion object {
@@ -29,6 +32,26 @@ class ClientNet {
             return retrofit
         }
     }
+}
+
+fun Context.isLogIn(): Cursor {
+    val conn = ConnectionSqlHelper(this, "db_users", null, 1)
+    val db = conn.readableDatabase
+    return db.rawQuery(
+        "SELECT * FROM ${Utils().TABLE_USER}",
+        null
+    )
+}
+
+fun Context.registerUsers(name: String, email: String, password: String) {
+    val conn = ConnectionSqlHelper(this, "db_users", null, 1)
+    val db = conn.writableDatabase
+    val values = ContentValues()
+    values.put(Utils().NAME, name)
+    values.put(Utils().EMAIL, email)
+    values.put(Utils().PASSWORD, password)
+    db.insert(Utils().TABLE_USER, Utils().EMAIL, values)
+    db.close()
 }
 
 fun Context.requestService(

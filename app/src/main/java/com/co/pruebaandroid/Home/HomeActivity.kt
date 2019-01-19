@@ -1,14 +1,16 @@
 package com.co.pruebaandroid.Home
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import com.co.pruebaandroid.Connection.ResultService
+import com.co.pruebaandroid.Connection.isLogIn
 import com.co.pruebaandroid.Connection.requestService
+import com.co.pruebaandroid.Login.LoginActivity
 import com.co.pruebaandroid.Models.Movie
 import com.co.pruebaandroid.Models.Result
 import com.co.pruebaandroid.R
-import com.co.pruebaandroid.SQL.ConnectionSqlHelper
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
@@ -29,7 +31,11 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem {
     }
 
     override fun onClickImage(result: Result) {
+        if (isLogIn().count > 0) {
 
+        } else {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 
     override fun onDataReturn(result: Movie?, tag: String?) {
