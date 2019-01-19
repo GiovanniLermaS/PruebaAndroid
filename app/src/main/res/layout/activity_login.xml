@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
+        android:inputType="textEmailAddress"
         android:hint="@string/email"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
@@ -40,6 +41,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,6 +51,7 @@
         app:layout_constraintVertical_bias="0.35" />
 
     <Button
+        android:id="@+id/btLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -62,6 +65,7 @@
         app:layout_constraintVertical_bias="0.55" />
 
     <Button
+        android:id="@+id/btRegisterLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"

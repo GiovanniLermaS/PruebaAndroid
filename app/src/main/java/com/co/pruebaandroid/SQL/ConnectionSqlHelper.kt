@@ -14,6 +14,7 @@ class ConnectionSqlHelper(
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(Utils().CREATE_TABLE_USER)
+        db?.execSQL(Utils().CREATE_TABLE_MOVIE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {

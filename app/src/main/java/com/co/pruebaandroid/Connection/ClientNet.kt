@@ -34,6 +34,24 @@ class ClientNet {
     }
 }
 
+fun Context.isExists(email: String, password: String): Cursor {
+    val conn = ConnectionSqlHelper(this, "db_users", null, 1)
+    val db = conn.readableDatabase
+    return db.rawQuery(
+        "SELECT * FROM ${Utils().TABLE_USER} WHERE ${Utils().EMAIL} = '$email' AND ${Utils().PASSWORD} = '$password'",
+        null
+    )
+}
+
+fun Context.selectedMovie(id: String): Cursor {
+    val conn = ConnectionSqlHelper(this, "db_users", null, 1)
+    val db = conn.readableDatabase
+    return db.rawQuery(
+        "SELECT * FROM ${Utils().TABLE_MOVIE} WHERE ${Utils().ID} = '$id'",
+        null
+    )
+}
+
 fun Context.isLogIn(): Cursor {
     val conn = ConnectionSqlHelper(this, "db_users", null, 1)
     val db = conn.readableDatabase
@@ -43,7 +61,7 @@ fun Context.isLogIn(): Cursor {
     )
 }
 
-fun Context.registerUsers(name: String, email: String, password: String) {
+fun Context.registerUser(name: String, email: String, password: String) {
     val conn = ConnectionSqlHelper(this, "db_users", null, 1)
     val db = conn.writableDatabase
     val values = ContentValues()
@@ -51,6 +69,17 @@ fun Context.registerUsers(name: String, email: String, password: String) {
     values.put(Utils().EMAIL, email)
     values.put(Utils().PASSWORD, password)
     db.insert(Utils().TABLE_USER, Utils().EMAIL, values)
+    db.close()
+}
+
+fun Context.registerMovie(id: String, description: String, isFavorite: String) {
+    val conn = ConnectionSqlHelper(this, "db_users", null, 1)
+    val db = conn.writableDatabase
+    val values = ContentValues()
+    values.put(Utils().ID, id)
+    values.put(Utils().DESCRIPTION, description)
+    values.put(Utils().IS_FAVORITE, isFavorite)
+    db.insert(Utils().TABLE_MOVIE, Utils().ID, values)
     db.close()
 }
 

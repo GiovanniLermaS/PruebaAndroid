@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.co.pruebaandroid.Connection.ResultService
 import com.co.pruebaandroid.Connection.isLogIn
+import com.co.pruebaandroid.Connection.registerMovie
 import com.co.pruebaandroid.Connection.requestService
+import com.co.pruebaandroid.DescriptionItem.DescriptionItemActivity
 import com.co.pruebaandroid.Login.LoginActivity
 import com.co.pruebaandroid.Models.Movie
 import com.co.pruebaandroid.Models.Result
@@ -32,9 +35,13 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem {
 
     override fun onClickImage(result: Result) {
         if (isLogIn().count > 0) {
-
+            val intent = Intent(this, DescriptionItemActivity::class.java)
+            intent.putExtra("id", result.id)
+            startActivity(intent)
         } else {
-            startActivity(Intent(this, LoginActivity::class.java))
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("id", result.id)
+            startActivity(intent)
         }
     }
 
@@ -42,9 +49,11 @@ class HomeActivity : AppCompatActivity(), ResultService, OnClickItem {
         when (tag) {
             withNoFilter -> {
                 val listResults = result?.results
+                for (list in listResults!!)
+                    registerMovie(list.id?.toString()!!, list.description!!, "false")
                 val adp = GroupAdapter<ViewHolder>()
-                for (list in listResults!!) adp.add(Images(list, this))
-                rvImages.layoutManager = GridLayoutManager(this, 2)
+                for (list in listResults) adp.add(Images(list, this))
+                rvImages.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
                 rvImages.adapter = adp
             }
             withFilter -> {
